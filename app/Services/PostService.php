@@ -4,7 +4,6 @@
 namespace App\Services;
 
 
-use App\Repositories\Eloquent\PostRepository;
 use App\Repositories\PostRepositoryInterface;
 
 class PostService implements PostServiceInterface
