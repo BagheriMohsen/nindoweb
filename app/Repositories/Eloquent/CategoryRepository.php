@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 
-use App\Models\Service;
+use App\Models\Category;
 
-class ServiceRepository extends BaseRepository
+class CategoryRepository extends BaseRepository
 {
 
     public function getFieldsSearchable(): array
@@ -16,6 +16,6 @@ class ServiceRepository extends BaseRepository
 
     public function model(): string
     {
-        return Service::class;
+        return Category::class;
     }
 }

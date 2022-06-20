@@ -4,13 +4,18 @@
 namespace App\Services;
 
 
-use App\Repositories\PostRepository;
+use App\Repositories\Eloquent\PostRepository;
+use App\Repositories\PostRepositoryInterface;
 
-class PostService extends BaseService
+class PostService implements PostServiceInterface
 {
-
-    public function repository(): string
+    public function __construct(private PostRepositoryInterface $postRepository)
     {
-        return PostRepository::class;
+    }
+
+    public function getWithPaginate(null|array $queries = null, array $with = [], $sort = "created_at",
+                                               $direction = "desc", $perPage = 15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->postRepository->getWithPaginate($queries, $with, $sort, $direction, $perPage);
     }
 }

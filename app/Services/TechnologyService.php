@@ -4,13 +4,13 @@
 namespace App\Services;
 
 
-use App\Repositories\TechnologyRepository;
+use App\Repositories\Eloquent\TechnologyRepository;
+use App\Repositories\TechnologyRepositoryInterface;
 
-class TechnologyService extends BaseService
+class TechnologyService implements TechnologyServiceInterface
 {
 
-    public function repository(): string
+    public function __construct(private TechnologyRepositoryInterface $technologyRepository)
     {
-        return TechnologyRepository::class;
     }
 }

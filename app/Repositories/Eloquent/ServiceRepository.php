@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 
-use App\Models\Post;
+use App\Models\Service;
 
-class PostRepository extends BaseRepository
+class ServiceRepository extends BaseRepository
 {
 
     public function getFieldsSearchable(): array
@@ -16,6 +16,6 @@ class PostRepository extends BaseRepository
 
     public function model(): string
     {
-        return Post::class;
+        return Service::class;
     }
 }

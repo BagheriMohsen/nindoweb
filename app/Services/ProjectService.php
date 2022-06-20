@@ -4,14 +4,11 @@
 namespace App\Services;
 
 
-use App\Repositories\ProjectRepository;
-use App\Services\BaseService;
+use App\Repositories\ProjectRepositoryInterface;
 
-class ProjectService extends BaseService
+class ProjectService implements ProjectServiceInterface
 {
-
-    public function repository(): string
+    public function __construct(private ProjectRepositoryInterface $projectRepository)
     {
-        return ProjectRepository::class;
     }
 }

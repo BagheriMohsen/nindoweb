@@ -4,13 +4,18 @@
 namespace App\Services;
 
 
-use App\Repositories\UserRepository;
+use App\Repositories\Eloquent\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 
-class UserService extends BaseService
+class UserService implements UserServiceInterface
 {
-
-    public function repository(): string
+    public function __construct(private UserRepositoryInterface $userRepository)
     {
-        return UserRepository::class;
+    }
+
+    public function getWithPaginate(null|array $queries = null, array $with = [], $sort = "created_at",
+                                               $direction = "desc", $perPage = 15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->userRepository->getWithPaginate($queries, $with, $sort, $direction, $perPage);
     }
 }
