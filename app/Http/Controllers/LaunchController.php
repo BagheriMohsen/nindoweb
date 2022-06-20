@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LaunchRequest;
 use App\Services\RequestFormService;
+use App\Services\RequestFormServiceInterface;
 
 class LaunchController extends Controller
 {
-    public function __construct(private RequestFormService $requestFormService)
+    public function __construct(private RequestFormServiceInterface $requestFormService)
     {
     }
 

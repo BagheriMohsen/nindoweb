@@ -4,13 +4,16 @@
 namespace App\Services;
 
 
-use App\Repositories\HireRepository;
+use App\Repositories\HireRepositoryInterface;
 
-class HireService extends BaseService
+class HireService implements HireServiceInterface
 {
-
-    public function repository(): string
+    public function __construct(private HireRepositoryInterface $hireRepository)
     {
-        return HireRepository::class;
+    }
+
+    public function create(array $data)
+    {
+        return $this->hireRepository->create($data);
     }
 }

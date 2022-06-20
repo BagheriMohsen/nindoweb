@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
+use App\Repositories\BaseRepositoryInterface;
 use Illuminate\Container\Container as Application;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
 
-abstract class BaseRepository
+abstract class BaseRepository implements BaseRepositoryInterface
 {
 
     protected Model $model;
@@ -32,12 +32,12 @@ abstract class BaseRepository
         return $this->model = $model;
     }
 
-    public function query(): \Illuminate\Database\Eloquent\Builder
+    protected function query()
     {
         return $this->model->newQuery();
     }
 
-    public function create(array $data): Model|\Illuminate\Database\Eloquent\Builder
+    public function create(array $data): Model
     {
         return $this->query()->create($data);
     }
@@ -62,7 +62,7 @@ abstract class BaseRepository
         return $this->query()->where($column, $value)->first();
     }
 
-    public function firstOrFail(string $column, string $value): Model|\Illuminate\Database\Eloquent\Builder
+    public function firstOrFail(string $column, string $value): Model
     {
         return $this->query()->where($column, $value)->firstOrFail();
     }
@@ -72,13 +72,16 @@ abstract class BaseRepository
         return $this->query()->where($column, $value)->delete();
     }
 
-    public function get($with=[]): \Illuminate\Database\Eloquent\Collection|array
+    public function get($with=[], array $selectColumns=['*'])
     {
-        return $this->query()->with($with)->get();
+        return $this->query()
+			->with($with)
+			->select($selectColumns)
+			->get();
     }
 
     public function getWithPaginate(null|array $queries=null, array $with=[], $sort="created_at",
-                                    $direction="desc", $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+                                               $direction="desc", $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->query()
             ->with($with)
@@ -91,7 +94,7 @@ abstract class BaseRepository
 
     public function firstOrCreate($queries,$data): Model
     {
-       return $this->query()->firstOrCreate($queries,$data);
+        return $this->query()->firstOrCreate($queries,$data);
     }
 
     public function search($value, $sort='created_at', $direction='desc', $perPage=15): \Illuminate\Contracts\Pagination\LengthAwarePaginator

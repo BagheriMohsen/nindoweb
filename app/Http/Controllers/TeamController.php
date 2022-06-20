@@ -10,7 +10,7 @@ class TeamController extends Controller
     {
     }
 
-    public function index(): \Illuminate\Contracts\View\View
+    public function __invoke(): \Illuminate\Contracts\View\View
     {
         $users = $this->userService->getWithPaginate(queries: [
             ['team_id', '!=', null]

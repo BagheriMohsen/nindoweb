@@ -8,7 +8,9 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/', HomeController::class)->name('home');
+Route::get('teams/', TeamController::class)->name('teams.index');
+
 
 Route::group(['prefix' => 'posts/', 'as' => 'posts.'] , function () {
    Route::get('', [PostController::class, 'postList'])->name('list');
@@ -31,6 +33,3 @@ Route::group(['prefix' => 'sitemap.xml/'], function () {
     Route::get('posts', [SitemapController::class, 'posts']);
 });
 
-Route::group(['prefix' => 'teams', 'as' => 'teams.'], function () {
-    Route::get('', [TeamController::class, 'index'])->name('index');
-});

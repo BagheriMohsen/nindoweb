@@ -5,12 +5,16 @@ namespace App\Services;
 
 
 use App\Models\RequestForm;
+use App\Repositories\RequestFormRepositoryInterface;
 
-class RequestFormService extends BaseService
+class RequestFormService implements RequestFormServiceInterface
 {
-
-    public function repository(): string
+    public function __construct(private RequestFormRepositoryInterface $requestFormRepository)
     {
-        return RequestForm::class;
+    }
+
+    public function create(array $data)
+    {
+        return $this->requestFormRepository->create($data);
     }
 }

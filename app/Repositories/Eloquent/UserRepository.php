@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
 
-use App\Models\Hire;
+use App\Models\User;
 
-class HireRepository extends BaseRepository
+class UserRepository extends BaseRepository
 {
 
     public function getFieldsSearchable(): array
@@ -16,6 +16,6 @@ class HireRepository extends BaseRepository
 
     public function model(): string
     {
-        return Hire::class;
+        return User::class;
     }
 }

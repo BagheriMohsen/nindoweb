@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PostService;
-use App\Services\ServiceService;
+use App\Services\PostServiceInterface;
+use App\Services\ServiceServiceInterface;
 
 class HomeController extends Controller
 {
-    public function __construct(private PostService $postService,
-                                private ServiceService $serviceService)
+    public function __construct(private PostServiceInterface $postService,
+                                private ServiceServiceInterface $serviceService)
     {
     }
 
-    public function home(): \Illuminate\Contracts\View\View
+    public function __invoke(): \Illuminate\Contracts\View\View
     {
         $posts = $this->postService->getWithPaginate(queries: [
             ['published_at', '<', now()]
@@ -23,4 +23,5 @@ class HomeController extends Controller
             'posts',
             'services'));
     }
+
 }
